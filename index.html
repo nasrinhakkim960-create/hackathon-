@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health Monitor</title>
+</head>
+
+<body style="text-align:center; font-family:Arial;">
+
+    <h1>🏥 Remote Health Monitor</h1>
+    
+    <p>Patient Id:VK204NJ</p>
+    <p>🌡️Temperature: <span id="temp">--</span> °C</p>
+    <p>🫀Heart Rate: <span id="hr">--</span> bpm</p>
+
+    <p id="alert"></p>
+
+    <script>
+        async function getData() {
+            const res = await fetch('/data');
+            const data = await res.json();
+
+            document.getElementById('temp').innerText = data.temperature || '--';
+            document.getElementById('hr').innerText = data.heartRate || '--';
+
+            const alertBox = document.getElementById('alert');
+            alertBox.innerText = data.alert || '';
+            if (data.alert.includes("⚠️")) {
+                document.body.style.backgroundColor="#ff4d4d";
+                document.body.style.color="white";
+                alertBox.style.color="white";
+            } else {
+                document.body.style.backgroundColor="white";
+                document.body.style.color="black";
+                alertBox.style.color = "green";
+            }
+            
+        }
+
+        setInterval(getData, 2000);
+    </script>
+
+</body>
+</html>
