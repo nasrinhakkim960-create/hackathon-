@@ -4,7 +4,7 @@ function sendData() {
         heartRate: Math.floor(60 + Math.random() * 60)
     };
 
-    fetch('http://localhost:3000/data', {
+    fetch('hackathon-production-3952.up.railway.app', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
